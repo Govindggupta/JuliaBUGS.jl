@@ -8,7 +8,6 @@ import cola from 'cytoscape-cola';
 import klay from 'cytoscape-klay';
 import { useCompoundDragDrop } from './useCompoundDragDrop';
 import svg from 'cytoscape-svg';
-import panzoom from 'cytoscape-panzoom';
 
 cytoscape.use(gridGuide);
 cytoscape.use(contextMenus);
@@ -17,7 +16,6 @@ cytoscape.use(fcose);
 cytoscape.use(cola);
 cytoscape.use(klay);
 cytoscape.use(svg);
-cytoscape.use(panzoom);
 
 let cyInstance: Core | null = null;
 
@@ -150,34 +148,6 @@ export function useGraphInstance() {
     });
 
     (cyInstance as Core & { gridGuide: (options: { drawGrid: boolean; snapToGridOnRelease: boolean; snapToGridDuringDrag: boolean; gridSpacing: number }) => void }).gridGuide({ drawGrid: false, snapToGridOnRelease: true, snapToGridDuringDrag: true, gridSpacing: 20 });
-
-
-    // Initialize panzoom
-    const panzoomOptions = {
-      zoomFactor: 0.05,
-      zoomDelay: 45,
-      minZoom: 0.1,
-      maxZoom: 10,
-      fitPadding: 50,
-      panSpeed: 10,
-      panDistance: 10,
-      panDragAreaSize: 75,
-      panMinPercentSpeed: 0.25,
-      panInactiveArea: 8,
-      panIndicatorMinOpacity: 0.5,
-      zoomOnly: false,
-      fitSelector: undefined,
-      animateOnFit: function(){
-        return false;
-      },
-      fitAnimationDuration: 1000,
-      sliderHandleIcon: 'fa fa-minus',
-      zoomInIcon: 'fa fa-plus',
-      zoomOutIcon: 'fa fa-minus',
-      resetIcon: 'fa fa-expand'
-    };
-
-    (cyInstance as Core & { panzoom: (options: typeof panzoomOptions) => void }).panzoom(panzoomOptions);
 
     (cyInstance as Core & { contextMenus: (options: { menuItems: { id: string; content: string; selector: string; onClickFunction: (evt: cytoscape.EventObject) => void }[] }) => void }).contextMenus({
       menuItems: [
